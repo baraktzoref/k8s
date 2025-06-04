@@ -1,1 +1,43 @@
 new session
+
+ConfigMaps
+
+LAB 1: Using ConfigMap for Environment
+
+Step 1: Create the ConfigMap (from literals)
+
+kubectl create configmap app-config --from-literal=APP_MODE=production --from-literal=APP_DEBUG=false
+
+Check your Configmap:
+kubectl get configmap app-config -o yaml
+-------------------------------------------------
+
+k apply -f config-map-pod.yaml 
+pod/configmap-env-demo created
+
+ubuntu@ip-10-0-34-217:~/course/k8s/04062025$ k get po
+NAME                 READY   STATUS    RESTARTS   AGE
+configmap-env-demo   1/1     Running   0          4s
+ubuntu@ip-10-0-34-217:~/course/k8s/04062025$ k logs configmap-env-demo
+APP_DEBUG=false
+APP_MODE=production
+
+------------------------------
+ubuntu@ip-10-0-34-217:~/course/k8s/04062025$ k delete configmap app-config
+configmap "app-config" deleted
+
+kubectl create configmap app-config --from-file=app.properties
+
+kubectl get configmap app-config -o yaml
+
+---------------------------
+ubuntu@ip-10-0-34-217:~/course/k8s/04062025$ k apply -f configmap-volume-pod.yaml 
+pod/configmap-volume-demo created
+
+k logs configmap-volume-demo
+
+-----------------------------------
+kubectl create configmap nginx-config --from-file=index.html
+kubectl get configmap nginx-config -o yaml
+k apply -f nginx-app.yaml
+-----------------------------------

@@ -1,0 +1,30 @@
+kubectl delete ing,svc,deploy --all
+k apply -f red-yellow-deploy.yaml
+k apply -f ingress-main.yaml
+k apply -f ingress-canary.yaml
+k get ing
+for i in {1..100}; do curl -s http://aaa2b572412ca4781ae9749432bcc2bc-6590812.eu-west-1.elb.amazonaws.com/ ; done | sort | uniq -c
+
+     81 RED
+     19 YELLOW
+
+---------------
+k delete ing color-ingress-canary
+k apply -f ingress-canary-header.yaml
+
+for i in {1..100}; do curl -s http://aaa2b572412ca4781ae9749432bcc2bc-6590812.eu-west-1.elb.amazonaws.com/ ; done | sort | uniq -c
+    100 RED
+
+curl -s http://aaa2b572412ca4781ae9749432bcc2bc-6590812.eu-west-1.elb.amazonaws.com/
+RED
+
+curl -s http://aaa2b572412ca4781ae9749432bcc2bc-6590812.eu-west-1.elb.amazonaws.com/ -H 'X-Canary: always'
+YELLOW
+-------------------
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
+  -out tls.crt -keyout tls.key -subj "/CN=example.com/O=example"
+kubectl create secret tls tls-secret --key tls.key --cert tls.crt
+k get secret
+k delete ing --all
+k apply -f ingress-tls.yaml
+curl https://aaa2b572412ca4781ae9749432bcc2bc-6590812.eu-west-1.elb.amazonaws.com -vk

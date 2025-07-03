@@ -1,0 +1,8 @@
+deployment:
+  image: elevy99927/color
+  tag: blue
+  replicas: 2
+
+service:
+  port: 80
+  type: LoadBalancer

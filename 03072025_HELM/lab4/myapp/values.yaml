@@ -1,0 +1,6 @@
+database_prod:
+  dbname: "db_mysql"
+  dbtable: "music"
+food:
+  drink: beer
+  eat: Peanut Butter and Jelly sandwich

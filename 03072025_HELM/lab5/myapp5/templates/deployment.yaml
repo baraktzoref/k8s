@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-dpl
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-lbl
+  replicas: {{ .Values.deployment.replicas }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-lbl
+    spec:
+      containers:
+      - name: {{ .Release.Name }}
+        image: {{ .Values.deployment.image }}:{{ .Values.deployment.tag }}
+        ports:
+        - containerPort: 8080

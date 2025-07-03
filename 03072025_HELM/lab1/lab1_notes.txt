@@ -1,0 +1,89 @@
+ubuntu@ip-10-0-33-161:~/course/k8s/03072025_HELM/lab1$ helm create myapp
+Creating myapp
+
+ubuntu@ip-10-0-33-161:~/course/k8s/03072025_HELM/lab1$ ls -la
+total 16
+drwxr-xr-x 3 ubuntu ubuntu 4096 Jul  3 12:17 .
+drwxr-xr-x 3 ubuntu ubuntu 4096 Jul  3 12:16 ..
+-rw-r--r-- 1 ubuntu ubuntu   89 Jul  3 12:17 lab1_notes.txt
+drwxr-xr-x 4 ubuntu ubuntu 4096 Jul  3 12:16 myapp
+
+ubuntu@ip-10-0-33-161:~/course/k8s/03072025_HELM/lab1$ rm -fr myapp/templates/*
+
+ubuntu@ip-10-0-33-161:~/course/k8s/03072025_HELM/lab1/myapp$ > values.yaml
+ubuntu@ip-10-0-33-161:~/course/k8s/03072025_HELM/lab1/myapp$ 
+ubuntu@ip-10-0-33-161:~/course/k8s/03072025_HELM/lab1/myapp$ touch configmap.yaml
+ubuntu@ip-10-0-33-161:~/course/k8s/03072025_HELM/lab1/myapp$
+
+ubuntu@ip-10-0-33-161:~/course/k8s/03072025_HELM/lab1/myapp$ cd ..
+ubuntu@ip-10-0-33-161:~/course/k8s/03072025_HELM/lab1$ 
+ubuntu@ip-10-0-33-161:~/course/k8s/03072025_HELM/lab1$ 
+ubuntu@ip-10-0-33-161:~/course/k8s/03072025_HELM/lab1$ helm install myapp ./myapp/
+NAME: myapp
+LAST DEPLOYED: Thu Jul  3 12:24:01 2025
+NAMESPACE: default
+STATUS: deployed
+REVISION: 1
+TEST SUITE: None
+-------------------------
+CHANGE name to {{ .Release.Name}}-cn
+
+ubuntu@ip-10-0-33-161:~/course/k8s/03072025_HELM/lab1$ helm install my-new-app ./myapp/
+NAME: my-new-app
+LAST DEPLOYED: Thu Jul  3 12:54:46 2025
+NAMESPACE: default
+STATUS: deployed
+REVISION: 1
+TEST SUITE: None
+ubuntu@ip-10-0-33-161:~/course/k8s/03072025_HELM/lab1$ 
+
+ubuntu@ip-10-0-33-161:~/course/k8s/03072025_HELM/lab1$ helm ls
+NAME            NAMESPACE       REVISION        UPDATED                                 STATUS          CHART           APP VERSION
+my-new-app      default         1               2025-07-03 12:54:46.812869402 +0000 UTC deployed        myapp-0.1.0     1.16.0     
+myapp           default         1               2025-07-03 12:24:01.810409831 +0000 UTC deployed        myapp-0.1.0     1.16.0     
+ubuntu@ip-10-0-33-161:~/course/k8s/03072025_HELM/lab1$ 
+ubuntu@ip-10-0-33-161:~/course/k8s/03072025_HELM/lab1$ helm uninstall myapp
+release "myapp" uninstalled
+ubuntu@ip-10-0-33-161:~/course/k8s/03072025_HELM/lab1$ 
+ubuntu@ip-10-0-33-161:~/course/k8s/03072025_HELM/lab1$ 
+ubuntu@ip-10-0-33-161:~/course/k8s/03072025_HELM/lab1$ helm ls
+NAME            NAMESPACE       REVISION        UPDATED                                 STATUS          CHART           APP VERSION
+my-new-app      default         1               2025-07-03 12:54:46.812869402 +0000 UTC deployed        myapp-0.1.0     1.16.0     
+ubuntu@ip-10-0-33-161:~/course/k8s/03072025_HELM/lab1$ 
+ubuntu@ip-10-0-33-161:~/course/k8s/03072025_HELM/lab1$ 
+
+ubuntu@ip-10-0-33-161:~/course/k8s/03072025_HELM/lab1$ helm install my-app-value ./myapp/
+NAME: my-app-value
+LAST DEPLOYED: Thu Jul  3 13:03:21 2025
+NAMESPACE: default
+STATUS: deployed
+REVISION: 1
+TEST SUITE: None
+ubuntu@ip-10-0-33-161:~/course/k8s/03072025_HELM/lab1$ 
+ubuntu@ip-10-0-33-161:~/course/k8s/03072025_HELM/lab1$ 
+ubuntu@ip-10-0-33-161:~/course/k8s/03072025_HELM/lab1$ helm ls
+NAME            NAMESPACE       REVISION        UPDATED                                 STATUS          CHART           APP VERSION
+my-app-value    default         1               2025-07-03 13:03:21.994118969 +0000 UTC deployed        myapp-0.1.0     1.16.0     
+my-new-app      default         1               2025-07-03 12:54:46.812869402 +0000 UTC deployed        myapp-0.1.0     1.16.0     
+ubuntu@ip-10-0-33-161:~/course/k8s/03072025_HELM/lab1$ 
+ubuntu@ip-10-0-33-161:~/course/k8s/03072025_HELM/lab1$ 
+ubuntu@ip-10-0-33-161:~/course/k8s/03072025_HELM/lab1$ helm upgrade --install my-app-value ./myapp/
+Release "my-app-value" has been upgraded. Happy Helming!
+NAME: my-app-value
+LAST DEPLOYED: Thu Jul  3 13:06:09 2025
+NAMESPACE: default
+STATUS: deployed
+REVISION: 2
+TEST SUITE: None
+ubuntu@ip-10-0-33-161:~/course/k8s/03072025_HELM/lab1$ 
+ubuntu@ip-10-0-33-161:~/course/k8s/03072025_HELM/lab1$ 
+ubuntu@ip-10-0-33-161:~/course/k8s/03072025_HELM/lab1$ helm ls
+NAME            NAMESPACE       REVISION        UPDATED                                 STATUS          CHART           APP VERSION
+my-app-value    default         2               2025-07-03 13:06:09.083815191 +0000 UTC deployed        myapp-0.1.0     1.16.0     
+my-new-app      default         1               2025-07-03 12:54:46.812869402 +0000 UTC deployed        myapp-0.1.0     1.16.0  
+
+ubuntu@ip-10-0-33-161:~/course/k8s/03072025_HELM/lab1$ helm history my-app-value
+REVISION        UPDATED                         STATUS          CHART           APP VERSION     DESCRIPTION     
+1               Thu Jul  3 13:03:21 2025        superseded      myapp-0.1.0     1.16.0          Install complete
+2               Thu Jul  3 13:06:09 2025        deployed        myapp-0.1.0     1.16.0          Upgrade complete
+ubuntu@ip-10-0-33-161:~/course/k8s/03072025_HELM/lab1$ 

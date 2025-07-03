@@ -1,1 +1,38 @@
 HELM CHART https://drive.google.com/file/d/1mcyu1iKMtMinBIXXuTV1mlMIhIq9Rfhp/view
+
+-----------------------------------------------------
+INSTALL HELM
+ubuntu@ip-10-0-33-161:~/course/k8s/03072025_HELM$ curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
+ubuntu@ip-10-0-33-161:~/course/k8s/03072025_HELM$ 
+ubuntu@ip-10-0-33-161:~/course/k8s/03072025_HELM$ chmod 700 get_helm.sh
+ubuntu@ip-10-0-33-161:~/course/k8s/03072025_HELM$ 
+ubuntu@ip-10-0-33-161:~/course/k8s/03072025_HELM$ 
+ubuntu@ip-10-0-33-161:~/course/k8s/03072025_HELM$ ./get_helm.sh
+Downloading https://get.helm.sh/helm-v3.18.3-linux-amd64.tar.gz
+Verifying checksum... Done.
+Preparing to install helm into /usr/local/bin
+helm installed into /usr/local/bin/helm
+-----------------------------------------------------
+ADD bitmani REPO
+
+ubuntu@ip-10-0-33-161:~/course/k8s/03072025_HELM$ helm repo add bitmani https://charts.bitnami.com/bitnami
+"bitmani" has been added to your repositories
+ubuntu@ip-10-0-33-161:~/course/k8s/03072025_HELM$ 
+ubuntu@ip-10-0-33-161:~/course/k8s/03072025_HELM$ helm repo list
+NAME    URL                               
+bitmani https://charts.bitnami.com/bitnami
+ubuntu@ip-10-0-33-161:~/course/k8s/03072025_HELM$ 
+ubuntu@ip-10-0-33-161:~/course/k8s/03072025_HELM$ 
+ubuntu@ip-10-0-33-161:~/course/k8s/03072025_HELM$ helm search repo mysql
+NAME                    CHART VERSION   APP VERSION     DESCRIPTION                                       
+bitmani/mysql           13.0.2          9.3.0           MySQL is a fast, reliable, scalable, and easy t...
+bitmani/phpmyadmin      19.0.0          5.2.2           phpMyAdmin is a free software tool written in P...
+bitmani/mariadb         21.0.1          11.8.2          MariaDB is an open source, community-developed ...
+bitmani/mariadb-galera  15.0.1          11.8.2          MariaDB Galera is a multi-primary database clus...
+ubuntu@ip-10-0-33-161:~/course/k8s/03072025_HELM$ 
+ubuntu@ip-10-0-33-161:~/course/k8s/03072025_HELM$ helm repo update
+Hang tight while we grab the latest from your chart repositories...
+...Successfully got an update from the "bitmani" chart repository
+Update Complete. ⎈Happy Helming!⎈
+ubuntu@ip-10-0-33-161:~/course/k8s/03072025_HELM$ 
+-----------------------------------------

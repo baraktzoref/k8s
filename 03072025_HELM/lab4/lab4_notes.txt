@@ -1,0 +1,13 @@
+ubuntu@ip-10-0-33-161:~/course/k8s/03072025_HELM/lab4$ helm install lab4-app ./myapp/
+NAME: lab4-app
+LAST DEPLOYED: Thu Jul  3 13:27:44 2025
+NAMESPACE: default
+STATUS: deployed
+REVISION: 1
+TEST SUITE: None
+
+ubuntu@ip-10-0-33-161:~/course/k8s/03072025_HELM/lab4$ helm ls
+NAME            NAMESPACE       REVISION        UPDATED                                 STATUS          CHART           APP VERSION
+lab4-app        default         1               2025-07-03 13:27:44.839566085 +0000 UTC deployed        myapp-0.1.0     1.16.0     
+my-app-value    default         2               2025-07-03 13:06:09.083815191 +0000 UTC deployed        myapp-0.1.0     1.16.0     
+my-new-app      default         1               2025-07-03 12:54:46.812869402 +0000 UTC deployed        myapp-0.1.0     1.16.0 

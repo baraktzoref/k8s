@@ -9,6 +9,8 @@ database_test:
 service_type: ClusterIP
 replicas: 1
 
+ingress:
+  enabled : true
 
 pod:
   image: "elevy99927/color"
